@@ -10,13 +10,15 @@ for (var citation of cites) {
 		data[lot][' LOADING ZONE VIOLATION *'] = 0;
 		data[lot][' MALFUNCTIONING METER*'] = 0;
 		data[lot]['1 - FAILURE TO PAY FEE'] = 0;
+		data[lot]['TOTAL'] = 0;
 	} else {
 		data[lot][type]++;
+		data[lot]['TOTAL']++;
 	}
 }
 
 var fs = require('fs');
-fs.writeFile('./parsed.json', JSON.stringify(data), function(err) {
+fs.writeFile('./parsed.json', JSON.stringify(data, null, '\t'), function (err) {
 	if (err) {
 		return console.log(err);
 	}
