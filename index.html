@@ -65,8 +65,16 @@
             mounted() {
                 //setup proc
                 //get all elements of correct class name
-                //set their onclick and onhover even listeners
-                //set element color based on percentage of total violations
+                var lots = document.getElementsByClassName("st18");
+                Array.prototype.forEach.call(lots, function(element) {
+                    
+                    //set their onclick and onhover even listeners
+                    element.onclick = this.showLotData;
+                    element.moseenter = this.showLotData;
+                    element.mouseleave = function(){this.currentLotName=""}.bind(this);
+                    //set element color based on percentage of total violations
+
+                });
 
                 //style the infobox to match mouse position or fixed at top of screen based on CSS query/device type
                 var oReq = new XMLHttpRequest();
@@ -76,6 +84,11 @@
                 });
                 oReq.open("GET", "/parsed.json");
                 oReq.send();
+            },
+            methods: {
+                showLotData(event){
+
+                }
             }
 
         })
