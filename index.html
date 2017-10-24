@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- START HERE -->
+    <div id="infobox">
+        <div v-if="currentLotName">
+            <h3>{{ currentLotName }}</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type of violation</th>
+                        <th>number of violations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>INVALID PERMIT</td>
+                        <td>{{ currentLot[" INVALID PERMIT FOR LOCATION*"] }}</td>
+                    </tr>
+                    <tr>
+                        <td>LOADING ZONE VIOLATION</td>
+                        <td>{{ currentLot[" LOADING ZONE VIOLATION *"] }}</td>
+                    </tr>
+                    <tr>
+                        <td>MALFUNCTIONING METER</td>
+                        <td>{{ currentLot[" LOADING ZONE VIOLATION *"] }}</td>
+                    </tr>
+                    <tr>
+                        <td>FAILURE TO PAY FEE</td>
+                        <td>{{ currentLot["1 - FAILURE TO PAY FEE"] }}</td>
+                    </tr>
+                    <tr>
+                        <td>TOTAL</td>
+                        <td>{{ currentLot["TOTAL"] }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        var app = new Vue({
+            el: "#infobox",
+            data: {
+                currentLotName: "",
+                parsed: {}
+            },
+            computed: {
+                currentLot() {
+                    if (this.currentLotName) {
+                        return this.parsed[this.currentLotName];
+                    } else {
+                        return {};
+                    }
+                }
+            },
+            mounted() {
+                var oReq = new XMLHttpRequest();
+                oReq.addEventListener("load", (e) => {
+                    // console.log(JSON.parse(oReq.response));
+                    this.parsed = JSON.parse(oReq.response);
+                });
+                oReq.open("GET", "/parsed.json");
+                oReq.send();
+            }
+
+        })
+
+        function displayMapData(element) {
+
+        }
+    </script>
+    <!-- END HERE -->
+</body>
+
+</html>
