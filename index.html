@@ -63,30 +63,35 @@
                 }
             },
             mounted() {
-                //setup proc
-                //get all elements of correct class name
-                var lots = document.getElementsByClassName("st18");
-                Array.prototype.forEach.call(lots, function(element) {
-                    
-                    //set their onclick and onhover even listeners
-                    element.onclick = this.showLotData;
-                    element.moseenter = this.showLotData;
-                    element.mouseleave = function(){this.currentLotName=""}.bind(this);
-                    //set element color based on percentage of total violations
-
-                });
 
                 //style the infobox to match mouse position or fixed at top of screen based on CSS query/device type
                 var oReq = new XMLHttpRequest();
-                oReq.addEventListener("load", (e) => {
+                oReq.addEventListener("load", function(e){
                     // console.log(JSON.parse(oReq.response));
                     this.parsed = JSON.parse(oReq.response);
-                });
+                    //setup proc
+                    //get all elements of correct class name
+                    var lots = document.getElementsByClassName("st18");
+                    Array.prototype.forEach.call(lots, function (element) {
+
+                        //set their onclick and onhover even listeners
+                        element.onclick = this.showLotData;
+                        element.moseenter = this.showLotData;
+                        element.mouseleave = function () {
+                            this.currentLotName = ""
+                        }.bind(this);
+                        //set element color based on percentage of total violations
+                        //get element.id and look it up in the table
+                        //do the math
+                        //multiply by color
+
+                    });
+                }.bind(this));
                 oReq.open("GET", "/parsed.json");
                 oReq.send();
             },
             methods: {
-                showLotData(event){
+                showLotData(event) {
 
                 }
             }
