@@ -13957,6 +13957,7 @@
         //style the infoBox to match mouse position or fixed at top of screen based on CSS query/device type
         var oReq = new XMLHttpRequest();
         oReq.addEventListener("load", function (e) {
+          var arr = [];
           // console.log(JSON.parse(oReq.response));
           this.parsed = JSON.parse(oReq.response);
           //setup proc
@@ -13964,7 +13965,29 @@
             var el = document.getElementById(this.underscoreLotName(lotName));
             if (el) {
               el.onclick = this.showLotData;
+              var obj = this.parsed[lotName];
+              obj.name = lotName;
+              arr.push(obj);
             }
+          }
+          arr.sort((a, b) => {
+            if (a["TOTAL"] === b["TOTAL"]) {
+              return 0;
+            }
+            if (a["TOTAL"] > b["TOTAL"]) {
+              return 1;
+            }
+            return -1;
+          });
+          var max = arr[arr.length - 1]["TOTAL"];
+
+
+          // x = %*50/100
+          for (const item of arr) {
+            var saturation = ((item["TOTAL"] / max * 100) * 75 / 100) + 25;
+            console.log(saturation);
+            var el = document.getElementById(this.underscoreLotName(item.name));
+            el.style.fill = "hsl(345, " + saturation + "%, 35%)";
           }
         }.bind(this));
         oReq.open("GET", "/parsed.json");
