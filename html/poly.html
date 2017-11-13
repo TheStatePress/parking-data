@@ -91,45 +91,7 @@
     </nav>
     <!-- START HERE -->
     <div>
-        <div id="infoBox" ref="infoBox" class="card" v-bind:style="positionObject">
-            <div class="card-header text-white bg-dark">
-                {{ prettyName }} Violations &nbsp; &nbsp;
-                <a @click="hideLotData" class="closeButton bg-danger">x</a>
-            </div>
-            <div class="card-body">
-                <!-- <h3 class="card-title">{{ prettyName }}</h3> -->
-                <table class="table table-bordered table-sm">
-                    <thead class="thead-light">
-                        <tr>
-                            <th>Type</th>
-                            <th>Number</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Invalid Permit</td>
-                            <td>{{ currentLot[" INVALID PERMIT FOR LOCATION*"] }}</td>
-                        </tr>
-                        <tr>
-                            <td>Loading Zone Violation</td>
-                            <td>{{ currentLot[" LOADING ZONE VIOLATION *"] }}</td>
-                        </tr>
-                        <tr>
-                            <td>Malfunctioning Meter</td>
-                            <td>{{ currentLot[" MALFUNCTIONING METER*"] }}</td>
-                        </tr>
-                        <tr>
-                            <td>Failure to Pay Fee</td>
-                            <td>{{ currentLot["1 - FAILURE TO PAY FEE"] }}</td>
-                        </tr>
-                        <tr>
-                            <td>Total</td>
-                            <td>{{ currentLot["TOTAL"] }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <div id="app"></div>
     </div>
     <div class="svg">
         <?xml version="1.0" encoding="utf-8"?>
@@ -30307,7 +30269,46 @@
 
     <script>
         var app = new Vue({
-            el: "#infoBox",
+            template: `<div id="infoBox" ref="infoBox" class="card" v-bind:style="positionObject">
+      <div class="card-header text-white bg-dark">
+        {{ prettyName }} Violations &nbsp; &nbsp;
+        <a @click="hideLotData" class="closeButton bg-danger">x</a>
+      </div>
+      <div class="card-body">
+        <!-- <h3 class="card-title">{{ prettyName }}</h3> -->
+        <table class="table table-bordered table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th>Type</th>
+              <th>Number</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Invalid Permit</td>
+              <td>{{ currentLot[" INVALID PERMIT FOR LOCATION*"] }}</td>
+            </tr>
+            <tr>
+              <td>Loading Zone Violation</td>
+              <td>{{ currentLot[" LOADING ZONE VIOLATION *"] }}</td>
+            </tr>
+            <tr>
+              <td>Malfunctioning Meter</td>
+              <td>{{ currentLot[" MALFUNCTIONING METER*"] }}</td>
+            </tr>
+            <tr>
+              <td>Failure to Pay Fee</td>
+              <td>{{ currentLot["1 - FAILURE TO PAY FEE"] }}</td>
+            </tr>
+            <tr>
+              <td>Total</td>
+              <td>{{ currentLot["TOTAL"] }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>`,
+            el: "#app",
             data: {
                 currentLotName: "",
                 parsed: {},
