@@ -64,10 +64,31 @@
             margin-top: 4px;
             cursor: pointer;
         }
+
+        nav a {
+            border: 1px solid white;
+            color: white;
+            background-color: #a35f64;
+        }
+
+        nav a:hover {
+            color: white;
+            background-color: #8C383E;
+        }
+
+        .active {
+            background-color: #8C383E !important;
+        }
     </style>
 </head>
 
 <body>
+    <nav class="nav nav-pills nav-fill">
+        <a class="nav-item nav-link" href="/html/tempe.html">Tempe</a>
+        <a class="nav-item nav-link" href="/html/downtown.html">Downtown</a>
+        <a class="nav-item nav-link active" href="/html/poly.html">Poly</a>
+        <a class="nav-item nav-link" href="/html/west.html">West</a>
+    </nav>
     <!-- START HERE -->
     <div>
         <div id="infoBox" ref="infoBox" class="card" v-bind:style="positionObject">
@@ -30324,32 +30345,32 @@
                     this.parsed = JSON.parse(oReq.response);
                     //setup proc
                     for (var lotName in this.parsed) {
-                      var el = document.getElementById(this.underscoreLotName(lotName));
-                      if (el) {
-                        el.onclick = this.showLotData;
-                        var obj = this.parsed[lotName];
-                        obj.name = lotName;
-                        arr.push(obj);
-                      }
+                        var el = document.getElementById(this.underscoreLotName(lotName));
+                        if (el) {
+                            el.onclick = this.showLotData;
+                            var obj = this.parsed[lotName];
+                            obj.name = lotName;
+                            arr.push(obj);
+                        }
                     }
                     arr.sort((a, b) => {
-                      if (a["TOTAL"] === b["TOTAL"]) {
-                        return 0;
-                      }
-                      if (a["TOTAL"] > b["TOTAL"]) {
-                        return 1;
-                      }
-                      return -1;
+                        if (a["TOTAL"] === b["TOTAL"]) {
+                            return 0;
+                        }
+                        if (a["TOTAL"] > b["TOTAL"]) {
+                            return 1;
+                        }
+                        return -1;
                     });
                     var max = arr[arr.length - 1]["TOTAL"];
-          
-          
+
+
                     // x = %*50/100
                     for (const item of arr) {
-                      var saturation = ((item["TOTAL"] / max * 100) * 75 / 100)+25;
-                      console.log(saturation);
-                      var el = document.getElementById(this.underscoreLotName(item.name));
-                      el.style.fill = "hsl(345, " + saturation + "%, 35%)";
+                        var saturation = ((item["TOTAL"] / max * 100) * 75 / 100) + 25;
+                        console.log(saturation);
+                        var el = document.getElementById(this.underscoreLotName(item.name));
+                        el.style.fill = "hsl(345, " + saturation + "%, 35%)";
                     }
                 }.bind(this));
                 oReq.open("GET", "/parking-data/parsed.json");
@@ -30389,9 +30410,11 @@
 
                         var styleObj = {
                             top: event.clientY + bHeight + 10 > window.innerHeight ?
-                                hOffset + "px" : event.clientY + "px",
+                                hOffset + window.scrollY + "px" : event.clientY + window.scrollY +
+                                "px",
                             left: event.clientX + bWidth + 10 > window.innerWidth ?
-                                wOffset + "px" : event.clientX + "px",
+                                wOffset + window.scrollX + "px" : event.clientX + window.scrollX +
+                                "px",
                             display: this.currentLotName ? "block" : "none",
                             // display: "block"
                         }

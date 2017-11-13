@@ -64,10 +64,31 @@
             margin-top: 4px;
             cursor: pointer;
         }
+
+        nav a {
+            border: 1px solid white;
+            color: white;
+            background-color: #a35f64;
+        }
+
+        nav a:hover {
+            color: white;
+            background-color: #8C383E;
+        }
+
+        .active {
+            background-color: #8C383E !important;
+        }
     </style>
 </head>
 
 <body>
+    <nav class="nav nav-pills nav-fill">
+        <a class="nav-item nav-link" href="/html/tempe.html">Tempe</a>
+        <a class="nav-item nav-link" href="/html/downtown.html">Downtown</a>
+        <a class="nav-item nav-link" href="/html/poly.html">Poly</a>
+        <a class="nav-item nav-link active" href="/html/west.html">West</a>
+    </nav>
     <!-- START HERE -->
     <div>
         <div id="infoBox" ref="infoBox" class="card" v-bind:style="positionObject">
@@ -6569,9 +6590,11 @@
 
                         var styleObj = {
                             top: event.clientY + bHeight + 10 > window.innerHeight ?
-                                hOffset + "px" : event.clientY + "px",
+                                hOffset + window.scrollY + "px" : event.clientY + window.scrollY +
+                                "px",
                             left: event.clientX + bWidth + 10 > window.innerWidth ?
-                                wOffset + "px" : event.clientX + "px",
+                                wOffset + window.scrollX + "px" : event.clientX + window.scrollX +
+                                "px",
                             display: this.currentLotName ? "block" : "none",
                             // display: "block"
                         }
