@@ -6530,8 +6530,9 @@
                 numberize(value) {
                     if (value) {
                         return value.toLocaleString();
+                    } else {
+                        return "0";
                     }
-
                 }
             },
             mounted() {
