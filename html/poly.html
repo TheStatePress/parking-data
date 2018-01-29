@@ -98,7 +98,7 @@
         <div id="app"></div>
     </div>
 
-    <div id="magnet" style="max-width: 25vw; position: absolute; left:10px; top:50px; background: #eee; padding: 5px;">
+    <div id="magnet" style="max-width: 15vw; position: absolute; left:10px; top:50px; background: #eee; padding: 5px;">
     Violations per lot<br>
     <img src="/parking-data/magnet.png" style="width: 100%; max-width: 300px;"/>
   </div>
@@ -30295,23 +30295,23 @@
           <tbody>
             <tr>
               <td>Invalid Permit</td>
-              <td>{{ currentLot[" INVALID PERMIT FOR LOCATION*"] }}</td>
+              <td>{{ currentLot[" INVALID PERMIT FOR LOCATION*"] | numberize }}</td>
             </tr>
             <tr>
               <td>Loading Zone Violation</td>
-              <td>{{ currentLot[" LOADING ZONE VIOLATION *"] }}</td>
+              <td>{{ currentLot[" LOADING ZONE VIOLATION *"] | numberize }}</td>
             </tr>
             <tr>
               <td>Malfunctioning Meter</td>
-              <td>{{ currentLot[" MALFUNCTIONING METER*"] }}</td>
+              <td>{{ currentLot[" MALFUNCTIONING METER*"] | numberize }}</td>
             </tr>
             <tr>
               <td>Failure to Pay Fee</td>
-              <td>{{ currentLot["1 - FAILURE TO PAY FEE"] }}</td>
+              <td>{{ currentLot["1 - FAILURE TO PAY FEE"] | numberize }}</td>
             </tr>
             <tr>
               <td>Total</td>
-              <td>{{ currentLot["TOTAL"] }}</td>
+              <td>{{ currentLot["TOTAL"] | numberize }}</td>
             </tr>
           </tbody>
         </table>
@@ -30344,6 +30344,14 @@
                         return first + rest;
                     }).join(' ');
                     return pname;
+                }
+            },
+            filters: {
+                numberize(value) {
+                    if (value) {
+                        return value.toLocaleString();
+                    }
+
                 }
             },
             mounted() {
